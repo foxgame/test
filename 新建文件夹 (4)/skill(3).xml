@@ -1,0 +1,183 @@
+<skill>
+	<!-- id icon 
+     
+     pro 职业ID 专属技能
+     
+     type 伤害类型
+     1物攻 2魔攻
+     
+     trigger 触发
+     enum SkillTrigger
+     {
+     STG_INITIATIVE = 1, // 主动触发 主动
+     STG_ATTCK = 2, // 普通攻击时 被动
+     STG_NORMAL = 3, // 时常，装备时触发 被动
+     STG_DIG = 4, // 挖掘时触发 被动
+     STG_HIT = 5, // 受击时触发 被动
+     STG_DEAD = 6, // 死亡时触发 被动
+     
+     };
+     
+     moveType 移动效果
+     enum gameSpriteMapType
+     {
+     GSMT_Null = 0,
+     GSMT_Earth = 1, // 地
+     GSMT_Ice = 2, // 水
+     GSMT_Fire = 3, // 火
+     GSMT_Electrical = 4, // 电
+     GSMT_Fly = 5, // 飞行
+     GSMT_Hide = 6, // 神圣
+     GSMT_No,
+     
+     
+     GSMT_Count
+     };
+     
+
+     
+     attr 属性 魔攻时用到这个，
+     enum gameCreatureAttr
+     {
+     GCA_PHYSICAL = 0,  // 物理
+     GCA_EARTH = 1, // 地
+     GCA_ICE = 2, // 冰
+     GCA_FIRE = 3, // 火
+     GCA_ELECTRICAL = 4, // 电
+     GCA_HOLY = 5, // 神圣
+     GCA_DARK = 6, // 黑暗
+     GCA_NULL = 7, // 无
+     
+     GCA_COUNT
+     };
+     
+     针对生物类型 0为无效果
+     cFly=" cDragon cDead="" 全配进去，不填是1.0
+     enum gameCreatureType
+     {
+     GCT_FLY = 1, // 飞行
+     GCT_DRAGON, // 龙
+     GCT_DEAD, // 僵尸
+     GCT_EARTH, // 土
+     GCT_METAL, // 金属
+     
+     
+     GCT_HUMAN = 10, // 人类
+     GCT_SPIRIT, // 精灵
+     GCT_ANGEL, // 天使
+     
+     GCT_COUNT
+     };
+     
+     target 范围
+     enum SkillTargetType
+     {
+     STT_TARGET = 1,    // 对方一体随机
+     STT_TARGETALL = 2, // 对方全体
+     
+     STT_HEALTH = 3,   // 己方一体
+     STT_HEALTHALL = 4, // 己方全体
+     
+     STT_SELF = 5, // 施法者自己
+     
+     STT_SPECIAL,
+     STT_OVERLOAD
+     };
+     
+     triggerEffect 触发效果
+     enum SkillTriggerEffect
+     {
+     STGE_NULL = 0, // 无
+     STGE_HP = 1,   // 伤害HP（物攻默认attr=0）可持续 type1/2 target1/2 trigger1/2 power attr turn hit
+     STGE_HP1 = 2,   // 伤害HP并且自毁 type1/2 target1/2 trigger1/2 power power1（自毁的系数）attr hit
+     STGE_HP2 = 3,   // 随机2名敌人伤害HP type1/2 target1/2 trigger1/2 power attr hit
+     STGE_HP3 = 4,   // 额外目标一定伤害 type1 trigger2 power
+     STGE_HP4 = 5,   // 直接伤害HP type2 trigger1 power
+     
+     STGE_FASTATTACK = 10, // 优先攻击 type1 trigger2
+     STGE_FASTATTACK2 = 11, // 攻击n次 type1 trigger1 power
+     STGE_GIDDINESS = 12, // 眩晕 附带HP 可持续 type1/2 target1/2 trigger1/2 power attr hit turn
+     STGE_CHARGE = 13, // 蓄力攻击，经过回合后攻击。type1/2 target1/2 trigger1 attr power turn
+     STGE_SP = 14, // 伤害SP type2 target1/2 trigger1/2 power hit turn
+     STGE_GOLD = 15, // 炼金 type1/2 target1/2 trigger1/2 power转换金币的倍数 hit
+     
+     STGE_HEALTH = 20, // 回复数值 可持续 type2 target3/4 trigger1 power turn
+     STGE_HEALTH1 = 21, // 回复百分比 可持续 type2 target3/4 trigger1 power turn
+     STGE_RELIVE = 	22, // 复活 type2 target3/4 trigger1 power
+     STGE_DEATH = 23, // 即死 type2 target1/2 trigger1 hit
+     STGE_DEATH1 = 24, // 命中降低即死 type1 target1/2 trigger2 hit
+     STGE_DEATH2 = 25, // 行动时即死 type2 target1/2 trigger1 hit turn
+     STGE_DEATH3 = 26, // HP小于多少即死 type2 target1/2 trigger1 hit power小于系数 turn
+     STGE_DEATH4 = 27, // 死亡后复活 type2 trigger6 hit
+     STGE_DEATH5 = 28, // 牺牲自己复活己方（只有自己存活时） type2 trigger1
+     STGE_HATRED = 29, // 仇恨攻击目标是自己 同时增加物防和HP 可持续 target2 trigger1 power power1 attr hit turn
+     STGE_HEALTHSP = 30, // 回复SP type2 target3/4 trigger1/2 power hit turn
+     
+     
+     STGE_MAXHP = 40, // 增加或降低最大HP 可持续 type2 target1/2/3/4/5 trigger1/3 power attr hit turn
+     STGE_MAXSP = 41, // 增加或降低最大SP 可持续 type2 target1/2/3/4/5 trigger1/3 power attr hit turn
+     STGE_DEFATTR = 42, // 增加或降低属性抗性 可持续 type2 target1/2/3/4/5 trigger1/3 power attr hit turn
+     STGE_SPEED = 43, // 增加或降低速度 可持续 type2 target1/2/3/4/5 target1/3 power hit turn
+     STGE_MISS = 44, // 增加或降低闪避 可持续 type2 target1/2/3/4/5 target1/3 power hit turn
+     STGE_HIT = 45, // 增加或降低命中 可持续 type2 target1/2/3/4/5 target1/3 power hit turn
+     STGE_PATK = 46, // 增加或降低物攻 可持续 type2 target1/2/3/4/5 trigger1/3 power hit turn
+     STGE_MATK = 47, // 增加或降低魔攻 可持续 type2 target1/2/3/4/5 trigger1/3 power hit turn
+     STGE_PDEF = 48, // 增加或降低物防 可持续 type2 target1/2/3/4/5 trigger1/3 power hit turn
+     STGE_MDEF = 49, // 增加或降低物防 可持续 type2 target1/2/3/4/5 trigger1/3 power hit turn
+     STGE_CT = 50, // 增加或降低暴击率 可持续 type2 target1/2/3/4/5 trigger1/3 power hit turn
+     STGE_BUFF = 51, // 移除我方不利buff type2 target/3/4/5 trigger1 hit
+     STGE_BUFF1 = 52, // 免疫所有不利buff trigger3 hit
+     
+     
+     STGE_DIG = 60, // 挖掘或采集时候物品翻倍。dig倍数 trigger4
+     };
+ 
+     
+     attr target trigger triggerEffect 参考上面。
+     
+     type 1物攻 2魔法
+     
+     cFly cDragon cDead cEarth cMetal cHuman cSpirit cAngel
+     针对生物类型
+
+     sp sp消耗
+    
+     moveType 地形移动效果 trigger=3
+     minDamage 最低伤害
+     
+     power  系数
+     power1 系数1
+     power2 系数2
+     
+     cp cp装备技能消耗
+     
+     ap 学得技能需要经验（ 打怪的个数 ）
+     
+     turn 持续回合数 0为无效，非0buff, 主动触发 、且触发效果可持续时有效。
+     
+     effect 特效名称
+     
+     dig 挖掘倍数
+     
+     hit 命中率
+     
+     level 技能等级
+     
+     
+     单体物理攻击
+     <s id="1" icon="IC2035" pro="1" name="重斩" des1="威力：10  SP 5  CP 5" des2="用蛮力猛砍，对一名敌人造成伤害。" type="1" trigger="1" triggerEffect="1" target="1" power="12.0" sp="5" cp="5" ap="20"   effect="MVB002" minDamage="11" hit="100" />
+     
+     单体回复，hp最低且小于50%。
+     <s id="2" icon="IC2035" pro="1" name="回复" des1="威力：10  SP 5  CP 5" des2="" type="1" trigger="1" triggerEffect="4" target="3" power="24.0" sp="5" cp="5" ap="20"   effect="MVB010" minDamage="11" hit="100" />
+
+     装备增加 hp% sp% def% atk%...
+     <s id="2" icon="IC2035" pro="1" name="回复" des1="威力：10  SP 5  CP 5" des2="" type="1" trigger="3" triggerEffect="40" power="1.5" cp="5" ap="20"  />
+     
+     针对生物类型
+     cFly="100.0" cDragon="100.0" cDead="100.0" cEarth="100.0" cMetal="100.0" cHuman="100.0" cSpirit="100.0" cAngel="100.0"
+     
+     
+     -->
+	<s id="1" icon="IC2035" pro="1" name="重斩" des1="威力：10  SP 5  CP 5" des2="用蛮力猛砍，对一名敌人造成伤害。" type="1" trigger="1" triggerEffect="1" target="1" power="12.0" sp="5" cp="5" ap="20" effect="MVB002" minDamage="11" hit="100"/>
+	<s id="2" icon="IC2035" pro="1" name="40" des1="威力：10  SP 5  CP 5" des2="" type="1" trigger="1" triggerEffect="40" power="11.5" attr="1" cp="5" ap="20" target="5" turn="4"/>
+</skill>
