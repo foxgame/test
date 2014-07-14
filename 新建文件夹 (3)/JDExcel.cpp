@@ -157,7 +157,11 @@ void JDExcel::writeXml(CString path) {
 	}
 	doc.LinkEndChild(decl);
 	doc.LinkEndChild(titleElement);
-	doc.SaveFile(UnicodeToUtf8(path));
+	char* www = UnicodeToUtf8(path);
+	int n = sizeof(path);
+	char*tt = new char[n+1];
+	memcpy(tt, www, sizeof(path));
+	doc.SaveFile(www);
 }
 char* JDExcel::UnicodeToUtf8(CString unicode)
 {
