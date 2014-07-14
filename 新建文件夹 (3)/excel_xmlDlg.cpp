@@ -8,11 +8,12 @@
 #include "excel_xmlDlg.h"
 #include "afxdialogex.h"
 #include "JDfindFile.h"
+#include <string>
+#include <iostream>
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
-
-
+char* UnicodeToUtf8(CString unicode);
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
 
 class CAboutDlg : public CDialogEx
@@ -178,15 +179,30 @@ void Cexcel_xmlDlg::OnBnClickedOk()
 		path3 = path3 + "\\" + files.p[i];
 		if (!test.openExcelBook(path3))
 			return;
-		string temp3;
-		temp3 =test.UnicodeToUtf8(temp1) + "\\";
-		temp3 += (string)test.UnicodeToUtf8(files.getFileName(i)) + ".xml";
-		test.writeXml(temp3.c_str());
+
+		temp1 += "\\";
+		temp1 += files.getFileName(i);
+		temp1 += ".xml";
+		test.writeXml(temp1);
+		//test.writeXml("C:\\Users\\Administrator\\Desktop\\1\\123.xml");
 		test.saveExcel();
 		list1->AddString(files.p[i]);
+		list1->AddString(files.getFileName(i) + ".xml");
 	}
 	//CDialogEx::OnOK();
 }
+
+ char* UnicodeToUtf8(CString unicode)
+{
+	int len;
+	len = WideCharToMultiByte(CP_UTF8, 0, (LPCWSTR)unicode, -1, NULL, 0, NULL, NULL);
+	char *szUtf8 = new char[len + 1];
+	memset(szUtf8, 0, len * 2 + 2);
+	WideCharToMultiByte(CP_UTF8, 0, (LPCWSTR)unicode, -1, szUtf8, len, NULL, NULL);
+	return szUtf8;
+}
+
+
 
 
 void Cexcel_xmlDlg::OnLbnSelchangeList1()

@@ -140,13 +140,13 @@ int JDExcel::laseCol()
 	}
 }
 
-void JDExcel::writeXml(const char* path) {
+void JDExcel::writeXml(CString path) {
 	using namespace std;
-	const char * xmlFile = path;
+	//const char * xmlFile = UnicodeToUtf8(path);
 	TiXmlDocument doc;
 	TiXmlDeclaration * decl = new TiXmlDeclaration("1.0", "", "");
 	TiXmlElement * titleElement = new TiXmlElement("aaa");
-	for (int i = 4; i <= (this->lastRow()); ++i)
+	for (int i = 4; i <= this->lastRow(); ++i)
 	{
 		TiXmlElement * Element = new TiXmlElement(UnicodeToUtf8(this->getCellValue(3, 1)));
 		for (int b = 1; b <= this->laseCol(); ++b)
@@ -157,7 +157,7 @@ void JDExcel::writeXml(const char* path) {
 	}
 	doc.LinkEndChild(decl);
 	doc.LinkEndChild(titleElement);
-	doc.SaveFile(xmlFile);
+	doc.SaveFile(UnicodeToUtf8(path));
 }
 char* JDExcel::UnicodeToUtf8(CString unicode)
 {

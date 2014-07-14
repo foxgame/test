@@ -16,9 +16,11 @@ public:
 
 public:
 	CString getFileName(int id);
+	const char* getfileName2(int id);
 	CString p[MAXFILE];
 	long cout;
 private:
+
 
 };
 

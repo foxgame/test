@@ -24,7 +24,7 @@ public:
 	int laseCol();
 	bool isExcel(CString name);
 	//void writeXml(const char* path,const char* value);
-	void writeXml(const char* path);
+	void writeXml(CString path);
 	char* UnicodeToUtf8(CString  str);
 private:
 

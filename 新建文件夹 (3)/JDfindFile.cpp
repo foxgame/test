@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "JDfindFile.h"
-
-
+#include <string>
+#include <iostream>
+char* UnicodeToUtf82(CString unicode);
 JDfindFile::JDfindFile(string path ,CListBox*list1)
 {
 	long n;
@@ -38,3 +39,20 @@ CString JDfindFile::getFileName(int id)
 	temp = p[id].Mid(0, n);
 	return temp;
 }
+ const char* JDfindFile::getfileName2(int id)
+{
+	int n;
+	n = p[id].Find(_T("."));
+	string temp;
+	temp = UnicodeToUtf82(p[id].Mid(0, n));
+	return temp.c_str();
+}
+ char* UnicodeToUtf82(CString unicode)
+ {
+	 int len;
+	 len = WideCharToMultiByte(CP_UTF8, 0, (LPCWSTR)unicode, -1, NULL, 0, NULL, NULL);
+	 char *szUtf8 = new char[len + 1];
+	 memset(szUtf8, 0, len * 2 + 2);
+	 WideCharToMultiByte(CP_UTF8, 0, (LPCWSTR)unicode, -1, szUtf8, len, NULL, NULL);
+	 return szUtf8;
+ }

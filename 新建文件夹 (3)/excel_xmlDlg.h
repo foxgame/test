@@ -3,8 +3,6 @@
 //
 
 #pragma once
-
-
 // Cexcel_xmlDlg ¶Ô»°¿ò
 class Cexcel_xmlDlg : public CDialogEx
 {
