@@ -108,6 +108,7 @@
     <ClInclude Include="excel_xml.h" />
     <ClInclude Include="excel_xmlDlg.h" />
     <ClInclude Include="JDExcel.h" />
+    <ClInclude Include="JDfindFile.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -119,6 +120,7 @@
     <ClCompile Include="excel_xml.cpp" />
     <ClCompile Include="excel_xmlDlg.cpp" />
     <ClCompile Include="JDExcel.cpp" />
+    <ClCompile Include="JDfindFile.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

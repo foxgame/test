@@ -148,17 +148,23 @@ void JDExcel::writeXml(const char* path) {
 	TiXmlElement * titleElement = new TiXmlElement("aaa");
 	for (int i = 4; i <= (this->lastRow()); ++i)
 	{
-		LPTSTR pf = (LPTSTR)(LPCTSTR)this->getCellValue(3, 1).GetString();
-		char*ttt = (char*)malloc(2 * wcslen(pf) + 1);
-		wcstombs(ttt, pf, 2 * wcslen(pf) + 1);
-		TiXmlElement * Element = new TiXmlElement(ttt);
+		TiXmlElement * Element = new TiXmlElement(UnicodeToUtf8(this->getCellValue(3, 1)));
 		for (int b = 1; b <= this->laseCol(); ++b)
 		{
-			Element->SetAttribute((char*)this->getCellValue(3, b).GetString(), (char*)this->getCellValue(i, b).GetString());
+			Element->SetAttribute(UnicodeToUtf8(this->getCellValue(3, b)), UnicodeToUtf8(this->getCellValue(i, b)));
 		}
 		titleElement->LinkEndChild(Element);
 	}
 	doc.LinkEndChild(decl);
 	doc.LinkEndChild(titleElement);
 	doc.SaveFile(xmlFile);
+}
+char* JDExcel::UnicodeToUtf8(CString unicode)
+{
+	int len;
+	len = WideCharToMultiByte(CP_UTF8, 0, (LPCWSTR)unicode, -1, NULL, 0, NULL, NULL);
+	char *szUtf8 = new char[len + 1];
+	memset(szUtf8, 0, len * 2 + 2);
+	WideCharToMultiByte(CP_UTF8, 0, (LPCWSTR)unicode, -1, szUtf8, len, NULL, NULL);
+	return szUtf8;
 }

@@ -36,4 +36,7 @@ private:
 	CListBox *list1;
 	CString indexToString(int row, int col);
 	bool isExcel(CString);
+public:
+	afx_msg void OnEnChangeEdit1();
+	afx_msg void OnEnChangeEdit2();
 };

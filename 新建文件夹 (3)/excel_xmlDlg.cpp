@@ -7,6 +7,7 @@
 #include "JDExcel.h"
 #include "excel_xmlDlg.h"
 #include "afxdialogex.h"
+#include "JDfindFile.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -64,6 +65,8 @@ BEGIN_MESSAGE_MAP(Cexcel_xmlDlg, CDialogEx)
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDOK, &Cexcel_xmlDlg::OnBnClickedOk)
 	ON_LBN_SELCHANGE(IDC_LIST1, &Cexcel_xmlDlg::OnLbnSelchangeList1)
+	ON_EN_CHANGE(IDC_EDIT3, &Cexcel_xmlDlg::OnEnChangeEdit1)
+	ON_EN_CHANGE(IDC_EDIT2, &Cexcel_xmlDlg::OnEnChangeEdit2)
 END_MESSAGE_MAP()
 
 
@@ -158,22 +161,59 @@ void Cexcel_xmlDlg::OnBnClickedOk()
 {
 	// TODO:  在此添加控件通知处理程序代码
 
+	string path = "C:\\Users\\Administrator\\Desktop\\新建文件夹 (4)";
+	CString path3;
+	path3 = "C:\\Users\\Administrator\\Desktop\\新建文件夹 (4)";
 	list1 = (CListBox*)GetDlgItem(IDC_LIST1);
+	CEdit* pathF = (CEdit*)GetDlgItem(IDC_EDIT2);
+	CString temp1;
+	pathF->GetWindowText(temp1);
+	CString temp2;
+	CEdit* pathB = (CEdit*)GetDlgItem(IDC_EDIT3);
+	pathB->GetWindowText(temp2);
 	JDExcel test;
-	
-	if (!test.openExcelBook(_T("C:\\Users\\Administrator\\Desktop\\12345.xlsx")))
-		return ;
-	test.writeXml("C:/Users/Administrator/Desktop/5.xml");
-	AfxMessageBox(test.getCellValue(12, 2).GetString());
-	test.saveExcel();
-
-	CDialogEx::OnOK();
+	JDfindFile files(path+"\\*.*", list1);
+	for (int i = 1; i <= files.cout; ++i)
+	{
+		path3 = path3 + "\\" + files.p[i];
+		if (!test.openExcelBook(path3))
+			return;
+		string temp3;
+		temp3 =test.UnicodeToUtf8(temp1) + "\\";
+		temp3 += (string)test.UnicodeToUtf8(files.getFileName(i)) + ".xml";
+		test.writeXml(temp3.c_str());
+		test.saveExcel();
+		list1->AddString(files.p[i]);
+	}
+	//CDialogEx::OnOK();
 }
 
 
 void Cexcel_xmlDlg::OnLbnSelchangeList1()
 {
 
+
+	// TODO:  在此添加控件通知处理程序代码
+}
+
+
+void Cexcel_xmlDlg::OnEnChangeEdit1()
+{
+	// TODO:  如果该控件是 RICHEDIT 控件，它将不
+	// 发送此通知，除非重写 CDialogEx::OnInitDialog()
+	// 函数并调用 CRichEditCtrl().SetEventMask()，
+	// 同时将 ENM_CHANGE 标志“或”运算到掩码中。
+
+	// TODO:  在此添加控件通知处理程序代码
+}
+
+
+void Cexcel_xmlDlg::OnEnChangeEdit2()
+{
+	// TODO:  如果该控件是 RICHEDIT 控件，它将不
+	// 发送此通知，除非重写 CDialogEx::OnInitDialog()
+	// 函数并调用 CRichEditCtrl().SetEventMask()，
+	// 同时将 ENM_CHANGE 标志“或”运算到掩码中。
 
 	// TODO:  在此添加控件通知处理程序代码
 }

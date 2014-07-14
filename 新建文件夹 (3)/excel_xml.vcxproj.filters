@@ -45,6 +45,9 @@
     <ClInclude Include="tinystr.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="JDfindFile.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="excel_xml.cpp">
@@ -72,6 +75,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="tinyxmlparser.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="JDfindFile.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

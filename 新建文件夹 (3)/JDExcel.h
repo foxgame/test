@@ -25,7 +25,7 @@ public:
 	bool isExcel(CString name);
 	//void writeXml(const char* path,const char* value);
 	void writeXml(const char* path);
-
+	char* UnicodeToUtf8(CString  str);
 private:
 
 };
